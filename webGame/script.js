@@ -1,37 +1,3 @@
-const loginForm = document.querySelector('.login-form');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const defaultEmailsList = document.getElementById('defaultEmails');
-const alertElement = document.querySelector('.alert'); // Corrected element ID
-const userEmailElement = document.getElementById('user-email'); // Corrected element ID
-
-loginForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent default form submission
-
-  const email = emailInput.value;
-  const password = passwordInput.value;
-
-  // 簡單的驗證 (實際上應使用伺服器端驗證)
-  if (email === 'test@example.com' && password === '123456') {
-    // 登入成功
-    window.location.href = 'loginSuccess.html'; // 跳到下一個頁面
-  } else {
-    // 登入失敗
-    alertElement.textContent = '登入失敗，請檢查您的帳號密碼';
-  }
-});
-
-window.onload = function() {
-  const urlParams = new URLSearchParams(window.location.search); // Corrected URLSearchParams usage
-  const email = urlParams.get('email'); // Corrected URL parameter name
-
-  if (email) {
-    userEmailElement.textContent = email;
-  }
-};
-
-
-
 // ---------------------------------------------------------------------------------------
 // QRcode script
 function onScanSuccess(decodedText, decodedResult) {
