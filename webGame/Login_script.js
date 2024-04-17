@@ -1,7 +1,7 @@
 function sendData() {
     event.preventDefault(); // 阻止表單提交
     const email = document.getElementById('email').value;
-    fetch('receive.php', {
+    fetch('http://120.125.73.101/~05170091/webGame/receive.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
