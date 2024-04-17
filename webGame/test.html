@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <style>
+        #reader {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Scanner</h1>
+    <div id="reader"></div>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // 扫描到 QR 码时执行的操作
+            console.log(`Decoded text: ${decodedText}`);
+            alert(`QR Code detected: ${decodedText}`);
+        }
+
+        function onScanError(errorMessage) {
+            // 扫描出错时执行的操作
+            console.error(`Scan error: ${errorMessage}`);
+        }
+
+        window.addEventListener('load', function() {
+            const html5QrCode = new Html5Qrcode("reader");
+            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+            html5QrCode.start(
+                { facingMode: "environment" }, // 选择后置摄像头
+                config,
+                onScanSuccess,
+                onScanError
+            ).catch(err => {
+                console.error(`Unable to start QR scanner: ${err}`);
+            });
+        });
+    </script>
+</body>
+</html>
