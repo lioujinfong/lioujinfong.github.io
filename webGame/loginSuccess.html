@@ -11,6 +11,14 @@
                 document.getElementById('userEmail').textContent = localStorage.getItem('userEmail');
             });
         </script>
+        <style>
+            #reader {
+                width: 300px;
+                height: 300px;
+                border: 2px solid red;
+                background-color: #fff;
+            }
+        </style>
     </head>
 
     <body>
@@ -19,8 +27,8 @@
             <p>歡迎回來，<span id="userEmail"></span>！</p>
         </div>
         
-        <div id="reader" style="width:300px;height:300px;border: 2px solid red;background-color: #fff"></div>
-            <p id="qr-result">QR Code Result: <span id="output"></span></p>
+        <div id="reader"></div>
+        <p id="qr-result">QR Code Result: <span id="output"></span></p>
         </body>
 </html>
 
