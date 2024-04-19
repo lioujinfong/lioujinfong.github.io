@@ -33,6 +33,8 @@ function startQRScanner() {
     });
 }
 
+
+/*
 document.addEventListener('DOMContentLoaded', function () {
     function waitForQrCodeLibrary() {
         if (typeof Html5Qrcode !== "undefined") {
@@ -46,5 +48,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     waitForQrCodeLibrary();
 });
-
+*/
 
