@@ -34,11 +34,17 @@ function startQRScanner() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    // 确保Html5Qrcode已加载
-    if (typeof Html5Qrcode !== "undefined") {
-        checkCameraAccess(); // 确保摄像头权限已授予再启动扫描器
-    } else {
-        console.error("Html5Qrcode is not loaded yet!");
+    function waitForQrCodeLibrary() {
+        if (typeof Html5Qrcode !== "undefined") {
+            console.log("Html5Qrcode is loaded.");
+            checkCameraAccess(); // Now start the camera access check
+        } else {
+            console.log("Html5Qrcode is not loaded yet, waiting...");
+            setTimeout(waitForQrCodeLibrary, 100); // Wait for 100ms and check again
+        }
     }
+
+    waitForQrCodeLibrary();
 });
+
 
