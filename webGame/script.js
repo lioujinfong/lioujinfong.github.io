@@ -27,3 +27,34 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error("Error starting QR scanner:", err);
     });
 });
+
+
+
+function checkCameraAccess() {
+    // 请求摄像头访问权限
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            // 摄像头已获得授权，流正在运行
+            console.log("Camera access granted.");
+            stream.getTracks().forEach(track => track.stop()); // 关闭流，如果不再使用摄像头
+
+            // 可以在这里调用其他函数，比如启动QR代码扫描
+        })
+        .catch((error) => {
+            // 错误处理
+            if (error.name === "NotAllowedError") {
+                console.error("Camera access denied by user.");
+                alert("Please allow camera access to use this feature.");
+            } else if (error.name === "NotFoundError") {
+                console.error("No camera device found.");
+                alert("No camera device found.");
+            } else {
+                console.error("Error accessing camera: ", error);
+                alert("Error accessing camera: " + error.message);
+            }
+        });
+}
+
+// 调用函数检查摄像头访问
+checkCameraAccess();
+
