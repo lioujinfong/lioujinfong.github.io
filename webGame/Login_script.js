@@ -17,7 +17,7 @@ function checkEmail() {
     const email = document.getElementById('email').value;
     const exists = users.some(user => user.email === email);
     if (exists) {
-        // alert('Email exists!');
+        localStorage.setItem('userEmail', email);
         window.location.href = "./loginSuccess.html";
     } else {
         alert('Email does not exist. Please check your email or password!');
