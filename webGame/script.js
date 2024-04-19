@@ -34,19 +34,5 @@ function startQRScanner() {
 }
 
 
-/*
-document.addEventListener('DOMContentLoaded', function () {
-    function waitForQrCodeLibrary() {
-        if (typeof Html5Qrcode !== "undefined") {
-            console.log("Html5Qrcode is loaded.");
-            checkCameraAccess(); // Now start the camera access check
-        } else {
-            console.log("Html5Qrcode is not loaded yet, waiting...");
-            setTimeout(waitForQrCodeLibrary, 100); // Wait for 100ms and check again
-        }
-    }
 
-    waitForQrCodeLibrary();
-});
-*/
 
