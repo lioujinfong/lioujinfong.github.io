@@ -83,7 +83,7 @@ function updataAllUser(userData){
     const username = 'lioujinfong';
     const repo = 'lioujinfong.github.io';
     const path = 'webGame/users.json';
-    const token = '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';
+    const token = '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';
     
     // 获取文件内容和SHA
     fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
