@@ -22,17 +22,22 @@ function updateTaskStatus() {
     
     const plan_id = 5;
     const ranks = 1;
-    
-    // 建立要傳輸的資料
-    let formData = new FormData();
-    formData.append('phoneNumber', user.cellphone);
-    formData.append('userEmail', user.email);
-    formData.append('ranks', ranks);
-    formData.append('plan_id', plan_id);
 
-    fetch('http://120.125.73.101/~05170091/webGame/api/updateUserData.php', {
+    let data = {
+        phoneNumber: user.cellphone,
+        userEmail: user.email,
+        ranks: ranks,
+        plan_id: plan_id
+    };
+    
+
+    fetch('https://cors-anywhere.herokuapp.com/http://120.125.73.101/~05170091/webGame/api/updateUserData.php', {
         method: 'POST',
-        body: formData
+        body: data,
+        headers: {
+            'Content-Type': 'application/json', 
+            'X-Requested-With': 'XMLHttpRequest'
+        }
     })
     .then(response => response.json())  // 假设服务器返回 JSON 数据
     .then(data => {
