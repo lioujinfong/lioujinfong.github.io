@@ -33,7 +33,10 @@ async function checkPhoneNumber(event) {
     
     fetch('https://cors-anywhere.herokuapp.com/http://120.125.73.101/~05170091/webGame/api/login.php', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
     })
     .then(response => response.json())  // 假设服务器返回 JSON 数据
     .then(data => {
