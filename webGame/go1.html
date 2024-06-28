@@ -5,6 +5,13 @@
         <title>展攤清單</title>
         <script src="qrcode.js"></script>
         <script src="go1.js?version=1.1"></script>
+        <style>
+          #reader {
+              width: 100%; /* 調整寬度為全視窗的一半 */
+              height: 50vh; /* 調整高度為視窗高度的一半 */
+              display: none; /* 初始時不顯示 */
+          }
+        </style>
     </head>
 
     <body>
@@ -29,7 +36,6 @@
 
         <!-- QR Code Reader -->
       <div id="reader" style="width:300px;height:300px; display: none;"></div>
-      <p id="qr-result">QR Code Result: <span id="output"></span></p>
         <!--
         <div id="reader" style="width:300px;height:300px; display: none;"></div>
         <p id="qr-result">QR Code Result: <span id="output"></span></p>
