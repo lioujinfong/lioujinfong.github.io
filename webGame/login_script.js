@@ -31,7 +31,7 @@ async function checkPhoneNumber(event) {
     let formData = new FormData();
     formData.append('phoneNumber', phoneNumber);
     
-    fetch('http://120.125.73.101/~05170091/webGame/api/login.php', {
+    fetch('https://cors-anywhere.herokuapp.com/http://120.125.73.101/~05170091/webGame/api/login.php', {
         method: 'POST',
         body: formData
     })
