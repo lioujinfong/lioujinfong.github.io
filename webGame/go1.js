@@ -79,17 +79,17 @@ function startQRScanner() {
             let parsedResult = parseScanResult(qrCodeMessage);
             console.log("攤位號碼:", parsedResult.boothNumber); // 顯示攤位號碼
             console.log("獲得積分:", parsedResult.score); // 顯示積分
-            //updateTaskStatus(parsedResult.boothNumber, parsedResult.score)
+            updateTaskStatus(parsedResult.boothNumber, parsedResult.score)
             
             
             stopQRScanner();
         },
         errorMessage => {
             // 掃描錯誤處理
-            console.error('QR scan error:', errorMessage);
+            //console.error('QR scan error:', errorMessage);
         }
     ).catch(err => {
-        console.error('Unable to start QR scanner', err);
+        //console.error('Unable to start QR scanner', err);
     });
 }
 
@@ -115,16 +115,27 @@ function onScanError(errorMessage) {
 
 
 function parseScanResult(scanResult) {
-    // 使用分號和空格拆分掃描結果字符串
+    // 使用中文分號拆分掃描結果字符串
     let parts = scanResult.split('；');
+    console.log('Parts:', parts); // 輸出看看拆分的部分是否正確
+
+    if (parts.length < 2) {
+        console.error('掃描結果格式不正確:', scanResult);
+        return { boothNumber: undefined, score: undefined };
+    }
 
     // 提取攤位號碼
     let boothPart = parts[0];
     let boothNumber = boothPart.split(' ')[1]; // 分割"展覽攤位 1"並取第二個元素
+    console.log('Booth Number:', boothNumber); // 輸出攤位號碼以確認解析正確
 
     // 提取積分
     let scorePart = parts[1];
-    let score = scorePart.split(' ')[2]; // 分割"獲得積分 2"並取第三個元素
+    let scoreWords = scorePart.trim().split(/\s+/); // 使用正則表達式分割任何空白字符
+    console.log('Score Words:', scoreWords); // 輸出積分字詞以確認解析正確
+
+    let score = scoreWords.length > 1 ? scoreWords[1] : undefined; // 確保有足夠的元素再取值
+    console.log('Score:', score); // 輸出積分
 
     return {
         boothNumber: boothNumber,
