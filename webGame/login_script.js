@@ -44,8 +44,8 @@ function checkPhoneNumber(event) {
         if (data.success) {  // 假设返回的 JSON 中有 success 字段
             setLoginCookie(phoneNumber); // 设置cookie
             localStorage.setItem('user', JSON.stringify(data.data));
-            alert('Login successful');
-            //window.location.href = "./loginSuccess.html"; // 跳转到成功页面
+            //alert('Login successful');
+            window.location.href = "./loginSuccess.html"; // 跳转到成功页面
         } else {
             alert('Phone number does not exist. Please check your information' + phoneNumber);
         }
