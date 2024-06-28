@@ -29,11 +29,11 @@ function updateTaskStatus() {
         ranks: ranks,
         plan_id: plan_id
     };
-    
+    let jsonData = JSON.stringify(data);
 
     fetch('https://cors-anywhere.herokuapp.com/http://120.125.73.101/~05170091/webGame/api/updateUserData.php', {
         method: 'POST',
-        body: data,
+        body: jsonData,
         headers: {
             'Content-Type': 'application/json', 
             'X-Requested-With': 'XMLHttpRequest'
