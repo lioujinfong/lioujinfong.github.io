@@ -79,7 +79,7 @@ function startQRScanner() {
             let parsedResult = parseScanResult(qrCodeMessage);
             console.log("攤位號碼:", parsedResult.boothNumber); // 顯示攤位號碼
             console.log("獲得積分:", parsedResult.score); // 顯示積分
-            updateTaskStatus(parsedResult.boothNumber, parsedResult.score)
+            //updateTaskStatus(parsedResult.boothNumber, parsedResult.score)
             
             
             stopQRScanner();
