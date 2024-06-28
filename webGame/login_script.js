@@ -23,32 +23,40 @@ fetch('https://api.github.com/repos/lioujinfong/lioujinfong.github.io/contents/w
 .catch(error => console.error('Error loading JSON:', error));
 
 
-async function checkPhoneNumber(event) {
-    event.preventDefault(); // 阻止表单默認提交
+function checkPhoneNumber(event) {
+    event.preventDefault(); // 阻止表单默认提交
 
     const phoneNumber = document.getElementById('phoneNumber').value;
+    const data = JSON.stringify({ phoneNumber: phoneNumber });
     
-    let formData = new FormData();
-    formData.append('phoneNumber', phoneNumber);
-    
+    console.log('Sending phone number:', phoneNumber);
+
     fetch('https://cors-anywhere.herokuapp.com/http://120.125.73.101/~05170091/webGame/api/login.php', {
         method: 'POST',
-        body: formData,
+        body: data,
         headers: {
+            'Content-Type': 'application/json', 
             'X-Requested-With': 'XMLHttpRequest'
         }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {  // 假设返回的 JSON 中有 success 字段
+            setLoginCookie(phoneNumber); // 设置cookie
+            localStorage.setItem('user', JSON.stringify(data.data));
+            alert('Login successful');
+            //window.location.href = "./loginSuccess.html"; // 跳转到成功页面
+        } else {
+            alert('Phone number does not exist. Please check your information' + phoneNumber);
+        }
+        console.log('data:', data);
     });
 
-    if (response.ok) {
-        let data = await response.json();
-        setLoginCookie(phoneNumber);
-        localStorage.setItem('user', JSON.stringify(data.data));
-        window.location.href = "./loginSuccess.html"; // 跳转到成功页面
-    } else {
-        console.error('HTTP error', response.status);
-    }
-
     /*
+    fetch('http://120.125.73.101/~05170091/webGame/api/login.php', {
+        method: 'POST',
+        body: formData
+    })
     .then(response => response.json())  // 假设服务器返回 JSON 数据
     .then(data => {
         if (data.success) {  // 假设返回的 JSON 中有 success 字段
@@ -66,7 +74,6 @@ async function checkPhoneNumber(event) {
         alert('An error occurred. Please try again.');
     });
     */
-    
 }
 
 
