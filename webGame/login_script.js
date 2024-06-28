@@ -30,27 +30,7 @@ async function checkPhoneNumber(event) {
     
     let formData = new FormData();
     formData.append('phoneNumber', phoneNumber);
-
-
-    try {
-        let formData = new FormData();
-        formData.append('phoneNumber', phoneNumber);
-
-        let response = await fetch('http://120.125.73.101/~05170091/webGame/api/proxy.php', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            let data = await response.json();
-            document.getElementById('response').textContent = JSON.stringify(data);
-        } else {
-            console.error('HTTP error', response.status);
-        }
-    } catch (error) {
-        console.error('Fetch error', error);
-    }
-    /*
+    
     fetch('http://120.125.73.101/~05170091/webGame/api/login.php', {
         method: 'POST',
         body: formData
@@ -71,7 +51,7 @@ async function checkPhoneNumber(event) {
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
     });
-    */
+    
 }
 
 
