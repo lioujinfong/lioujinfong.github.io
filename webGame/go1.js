@@ -16,12 +16,12 @@ function loadUserData() {
 
 
 // 更新local user資料
-function updateTaskStatus() {
+function updateTaskStatus(plan_id, ranks) {
     
     const user = loadUserData();
     
-    const plan_id = 5;
-    const ranks = 1;
+    //const plan_id = 5;
+    //const ranks = 1;
 
     let data = {
         phoneNumber: user.cellphone,
@@ -76,8 +76,12 @@ function startQRScanner() {
         { fps: 10, qrbox: 250 },       // 指定每秒幀數和掃描區域的大小
         qrCodeMessage => {
             // 掃描到的數據處理
+            let parsedResult = parseScanResult(scanResult);
+            console.log("攤位號碼:", parsedResult.boothNumber); // 顯示攤位號碼
+            console.log("獲得積分:", parsedResult.score); // 顯示積分
+            updateTaskStatus(parsedResult.boothNumber, parsedResult.score)
             alert(qrCodeMessage);
-            document.getElementById('output').textContent = qrCodeMessage;
+            
             stopQRScanner();
         },
         errorMessage => {
@@ -107,4 +111,23 @@ function onScanSuccess(decodedText, decodedResult) {
 
 function onScanError(errorMessage) {
     console.log(errorMessage);
+}
+
+
+function parseScanResult(scanResult) {
+    // 使用分號和空格拆分掃描結果字符串
+    let parts = scanResult.split('；');
+
+    // 提取攤位號碼
+    let boothPart = parts[0];
+    let boothNumber = boothPart.split(' ')[1]; // 分割"展覽攤位 1"並取第二個元素
+
+    // 提取積分
+    let scorePart = parts[1];
+    let score = scorePart.split(' ')[2]; // 分割"獲得積分 2"並取第三個元素
+
+    return {
+        boothNumber: boothNumber,
+        score: score
+    };
 }
