@@ -23,7 +23,7 @@ fetch('https://api.github.com/repos/lioujinfong/lioujinfong.github.io/contents/w
 .catch(error => console.error('Error loading JSON:', error));
 
 
-function checkPhoneNumber(event) {
+async function checkPhoneNumber(event) {
     event.preventDefault(); // 阻止表单默認提交
 
     const phoneNumber = document.getElementById('phoneNumber').value;
@@ -31,7 +31,26 @@ function checkPhoneNumber(event) {
     let formData = new FormData();
     formData.append('phoneNumber', phoneNumber);
 
-    
+
+    try {
+        let formData = new FormData();
+        formData.append('phoneNumber', phoneNumber);
+
+        let response = await fetch('http://120.125.73.101/~05170091/webGame/api/proxy.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            let data = await response.json();
+            document.getElementById('response').textContent = JSON.stringify(data);
+        } else {
+            console.error('HTTP error', response.status);
+        }
+    } catch (error) {
+        console.error('Fetch error', error);
+    }
+    /*
     fetch('http://120.125.73.101/~05170091/webGame/api/login.php', {
         method: 'POST',
         body: formData
@@ -52,24 +71,9 @@ function checkPhoneNumber(event) {
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
     });
+    */
 }
 
-/*
-function checkPhoneNumber(event) {
-    event.preventDefault(); // 阻止表單提交
-    const phoneNumber = document.getElementById('phoneNumber').value;
-    const user = users.find(user => user.phoneNumber == phoneNumber);
-    
-    if (user) {
-        //alert('phoneNumber exists!');
-        setLoginCookie(phoneNumber); // 設定cookie
-        localStorage.setItem('user', JSON.stringify(user));
-        window.location.href = "./loginSuccess.html";
-    } else {
-        alert('Phone number does not exist. Please check your information');
-    }
-}
-*/
 
 // 設定cookie-- 目前將username設定為phoneNumber
 function setLoginCookie(username) {
