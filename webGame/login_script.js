@@ -37,7 +37,7 @@ async function checkPhoneNumber(event) {
         headers: {
             'X-Requested-With': 'XMLHttpRequest'
         }
-    })
+    });
     .then(response => response.json())  // 假设服务器返回 JSON 数据
     .then(data => {
         if (data.success) {  // 假设返回的 JSON 中有 success 字段
