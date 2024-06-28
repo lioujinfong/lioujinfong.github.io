@@ -38,6 +38,17 @@ async function checkPhoneNumber(event) {
             'X-Requested-With': 'XMLHttpRequest'
         }
     });
+
+    if (response.ok) {
+        let data = await response.json();
+        setLoginCookie(phoneNumber);
+        localStorage.setItem('user', JSON.stringify(data.data));
+        window.location.href = "./loginSuccess.html"; // 跳转到成功页面
+    } else {
+        console.error('HTTP error', response.status);
+    }
+
+    /*
     .then(response => response.json())  // 假设服务器返回 JSON 数据
     .then(data => {
         if (data.success) {  // 假设返回的 JSON 中有 success 字段
@@ -54,6 +65,7 @@ async function checkPhoneNumber(event) {
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
     });
+    */
     
 }
 
