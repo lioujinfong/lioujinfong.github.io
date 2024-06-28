@@ -75,12 +75,12 @@ function startQRScanner() {
         { facingMode: "environment" }, // 使用後置攝像頭
         { fps: 10, qrbox: 250 },       // 指定每秒幀數和掃描區域的大小
         qrCodeMessage => {
-            // 掃描到的數據處理
-            let parsedResult = parseScanResult(scanResult);
+            alert(qrCodeMessage);
+            let parsedResult = parseScanResult(qrCodeMessage);
             console.log("攤位號碼:", parsedResult.boothNumber); // 顯示攤位號碼
             console.log("獲得積分:", parsedResult.score); // 顯示積分
             updateTaskStatus(parsedResult.boothNumber, parsedResult.score)
-            alert(qrCodeMessage);
+            
             
             stopQRScanner();
         },
