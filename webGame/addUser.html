@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>新增使用者</title>
+</head>
+<body>
+    <h1>新增使用者</h1>
+    <form id="userForm">
+        <label for="name">名字:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">電子郵件:</label>
+        <input type="email" id="email" name="email" required><br>
+        <button type="submit">新增使用者</button>
+    </form>
+    
+    <input type="file" id="fileInput" accept=".json">
+    <button type="button" onclick="loadFile()">載入檔案</button>
+    <button type="button" onclick="saveFile()">保存修改</button>
+
+    <div id="message"></div>
+
+    <script>
+        let users = [];
+        let loadedFile = null;
+
+        // 添加或更新用户
+        function addUser(user) {
+            const existingUserIndex = users.findIndex(u => u.email === user.email);
+            if (existingUserIndex >= 0) {
+                users[existingUserIndex] = user; // 更新現有用戶
+                document.getElementById('message').innerText = '使用者更新成功！';
+            } else {
+                users.push(user); // 新增用戶
+                document.getElementById('message').innerText = '使用者新增成功！';
+            }
+        }
+
+        // 表单提交事件处理
+        document.getElementById('userForm').onsubmit = function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            addUser({ name, email });
+        };
+
+        // 載入本地檔案
+        function loadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('請選擇一個 JSON 文件');
+                return;
+            }
+
+            loadedFile = file;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    users = JSON.parse(event.target.result);
+                    document.getElementById('message').innerText = '檔案載入成功！';
+                } catch (error) {
+                    document.getElementById('message').innerText = '無法解析 JSON 文件：' + error.message;
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // 保存修改到本地檔案
+        function saveFile() {
+            if (!loadedFile) {
+                alert('尚未載入任何檔案');
+                return;
+            }
+
+            const json = JSON.stringify(users, null, 2); // 美化 JSON 输出
+            const blob = new Blob([json], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+
+            // 建立下載連接
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = loadedFile.name;
+            a.click();
+
+            // 清理
+            URL.revokeObjectURL(url);
+            document.getElementById('message').innerText = '檔案保存成功！';
+        }
+    </script>
+</body>
+</html>
